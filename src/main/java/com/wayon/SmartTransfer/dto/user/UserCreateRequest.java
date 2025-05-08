@@ -26,6 +26,10 @@ public class UserCreateRequest {
     @Email
     private String email;
 
+    @Pattern(regexp = "^[A-Za-z0-9]{10}$", message = "Account number must be exactly 10 alphanumeric characters")
+    @NotBlank
+    private String sourceAccount;
+
     @NotBlank
     @Size(min = 8, max = 32)
     private String password;

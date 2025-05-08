@@ -38,6 +38,10 @@ public class User extends Auditable implements UserDetails {
     private String email;
 
     @NonNull
+    @Column(name = "source_account", nullable = false, length = 10)
+    private String sourceAccount;
+
+    @NonNull
     private String password;
 
     @NonNull
@@ -50,7 +54,7 @@ public class User extends Auditable implements UserDetails {
 
     @Override
     public String getUsername() {
-        return email;
+        return getUserId();
     }
 
     @Override

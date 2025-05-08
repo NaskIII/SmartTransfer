@@ -15,7 +15,7 @@ public class UserSpecifications {
                 .and(searchByStatus(searchCriteria.getStatus()));
     }
 
-    public static Specification<User> searchByName(String name) {
+    private static Specification<User> searchByName(String name) {
         return (root, query, criteriaBuilder) -> {
             if (name == null) return null;
 
@@ -23,7 +23,7 @@ public class UserSpecifications {
         };
     }
 
-    public static Specification<User> searchByLastName(String name) {
+    private static Specification<User> searchByLastName(String name) {
         return (root, query, criteriaBuilder) -> {
             if (name == null) return null;
 
@@ -31,7 +31,7 @@ public class UserSpecifications {
         };
     }
 
-    public static Specification<User> searchByEmail(String email) {
+    private static Specification<User> searchByEmail(String email) {
         return (root, query, criteriaBuilder) -> {
             if (email == null) return null;
 
@@ -39,7 +39,7 @@ public class UserSpecifications {
         };
     }
 
-    public static Specification<User> searchByProfile(String profile) {
+    private static Specification<User> searchByProfile(String profile) {
         return (root, query, criteriaBuilder) -> {
             if (profile == null) return null;
 
@@ -47,7 +47,7 @@ public class UserSpecifications {
         };
     }
 
-    public static Specification<User> searchByStatus(String status) {
+    private static Specification<User> searchByStatus(String status) {
         return (root, query, criteriaBuilder) -> {
             if (status == null) return null;
 

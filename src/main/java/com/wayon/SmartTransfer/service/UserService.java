@@ -75,11 +75,13 @@ public class UserService {
     public UserDetailResponse updateUser(String uuid, UserUpdateRequest userUpdateRequest) throws ChangeSetPersister.NotFoundException {
         var profile = profileRepository.findByName(userUpdateRequest.getProfile()).orElseThrow(ChangeSetPersister.NotFoundException::new);
         var user = userRepository.findById(uuid).orElseThrow(ChangeSetPersister.NotFoundException::new);
+
         user.setProfile(profile);
         user.setFirstName(userUpdateRequest.getFirstName());
         user.setLastName(userUpdateRequest.getLastName());
         user.setEmail(userUpdateRequest.getEmail());
         user.setStatus(userUpdateRequest.getStatus());
+        user.setSourceAccount(userUpdateRequest.getSourceAccount());
 
         userRepository.save(user);
 

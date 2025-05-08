@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 
 @Getter
 @Setter
@@ -21,6 +22,10 @@ public class UserUpdateRequest {
 
     @NotBlank
     private String lastName;
+
+    @Pattern(regexp = "^[A-Za-z0-9]{10}$", message = "Account number must be exactly 10 alphanumeric characters")
+    @NotBlank
+    private String sourceAccount;
 
     @NotBlank
     @Email
