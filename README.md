@@ -44,7 +44,7 @@ Como utilizei o IntelliJ para implementar a solução, o passo a passo abaixo co
 
 ```bash
 # Clone o repositório
-git clone https://github.com/NaskIII/SmartTransfer.git t
+git clone https://github.com/NaskIII/SmartTransfer.git
 ```
 
 1. Abra o projeto no IntelliJ e aceite a elevação solicitada pelo Windows Defender (se aplicável).
@@ -67,6 +67,10 @@ Após isso, basta executar o projeto.
 
 - Swagger UI: [http://localhost:8081/swagger-ui/index.html](http://localhost:8081/swagger-ui/index.html)
 
+- Para o primeiro login, utilize as seguintes credênciais:
+  - E-mail: admin@smart.local
+  - Senha: admin123
+  
 ---
 
 ## Decisões técnicas
