@@ -16,15 +16,15 @@ import java.time.LocalDate;
 @Builder
 public class CreateTransfersRequest {
 
-    @Pattern(regexp = "^[A-Za-z0-9]{10}$", message = "Account number must be exactly 10 alphanumeric characters")
+    @Pattern(regexp = "^[A-Za-z0-9]{10}$", message = "O número da conta precisa possuir 10 dígitos!")
     private String destinationAccount;
 
-    @NotNull(message = "Amount is required")
-    @DecimalMin(value = "0.01", inclusive = true, message = "The amount value should be greater than 0.")
+    @NotNull(message = "O campo Valor é obrigatório.")
+    @DecimalMin(value = "0.01", inclusive = true, message = "O campo valor precisa possuir um valor maior que 0.")
     private BigDecimal amount;
 
-    @NotNull(message = "Transfer date is required")
-    @FutureOrPresent(message = "Transfer date must not be in the past")
+    @NotNull(message = "A data de transferência é obrigatória")
+    @FutureOrPresent(message = "A data de transferência não pode ser anterior ao dia de hoje.")
     private LocalDate transferDate;
 
 }

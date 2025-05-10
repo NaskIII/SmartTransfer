@@ -23,7 +23,7 @@ public class UserUpdateRequest {
     @NotBlank
     private String lastName;
 
-    @Pattern(regexp = "^[A-Za-z0-9]{10}$", message = "Account number must be exactly 10 alphanumeric characters")
+    @Pattern(regexp = "^[A-Za-z0-9]{10}$", message = "O número da conta precisa possuir 10 dígitos!")
     @NotBlank
     private String sourceAccount;
 
