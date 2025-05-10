@@ -74,7 +74,7 @@ public class UserController {
     }
 
     @GetMapping("/{uuid}")
-    public ResponseEntity<UserDetailResponse> getUserByUuid(@PathVariable String uuid) throws ChangeSetPersister.NotFoundException {
+    public ResponseEntity<UserDetailResponse> getUserByUuid(@PathVariable String uuid) {
         try {
             var response = userService.getUserById(uuid);
             return ResponseEntity.ok(response);

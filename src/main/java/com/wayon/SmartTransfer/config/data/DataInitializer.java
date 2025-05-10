@@ -44,7 +44,13 @@ public class DataInitializer {
                             return profileRepository.save(p);
                         });
 
-                User user = new User(adminProfile, "Admin", "Smart", email, passwordEncoder.encode("admin123"));
+                User user = new User(adminProfile,
+                        "Admin",
+                        "Smart",
+                        email,
+                        "3zDI0VaXex",
+                        passwordEncoder.encode("admin123")
+                );
                 user.setStatus(UserStatus.ACTIVE.name());
 
                 userRepository.save(user);

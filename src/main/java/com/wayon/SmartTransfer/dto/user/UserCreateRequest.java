@@ -26,6 +26,10 @@ public class UserCreateRequest {
     @Email
     private String email;
 
+    @Pattern(regexp = "^[A-Za-z0-9]{10}$", message = "O número da conta precisa possuir 10 dígitos!")
+    @NotBlank
+    private String sourceAccount;
+
     @NotBlank
     @Size(min = 8, max = 32)
     private String password;
@@ -34,6 +38,6 @@ public class UserCreateRequest {
     @Size(min = 8, max = 32)
     private String confirmPassword;
 
-    @NotBlank @Pattern(regexp = "ADMINISTRATOR|COMMON", message = "Invalid profile name! Options: ADMINISTRATOR, COMMON")
+    @NotBlank @Pattern(regexp = "ADMINISTRATOR|COMMON", message = "Perfil inválido! As opções disponíveis são: ADMINISTRATOR, COMMON")
     private String profile;
 }
