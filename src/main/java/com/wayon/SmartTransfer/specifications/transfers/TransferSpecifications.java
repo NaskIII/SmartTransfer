@@ -4,6 +4,8 @@ import com.wayon.SmartTransfer.entity.transfers.Transfers;
 import com.wayon.SmartTransfer.entity.transfers.Transfers_;
 import org.springframework.data.jpa.domain.Specification;
 
+import java.time.LocalDate;
+
 
 public class TransferSpecifications {
 
@@ -11,7 +13,9 @@ public class TransferSpecifications {
         return searchByTransferId(transfersSearchCriteria.getTransferId())
                 .and(searchBySourceAccount(transfersSearchCriteria.getSourceAccount()))
                 .and(searchByDestinationAccount(transfersSearchCriteria.getDestinationAccount()))
-                .and(searchByCreatedBy(transfersSearchCriteria.getCreatedBy()));
+                .and(searchByCreatedBy(transfersSearchCriteria.getCreatedBy()))
+                .and(searchByScheduleDate(transfersSearchCriteria.getScheduleDate()))
+                .and(searchByTransferDate(transfersSearchCriteria.getTransferDate()));
     }
 
     private static Specification<Transfers> searchByTransferId(String transferId) {
@@ -43,6 +47,22 @@ public class TransferSpecifications {
             if (createdBy == null) return null;
 
             return criteriaBuilder.equal(root.get(Transfers_.createdBy.getName()), createdBy);
+        };
+    }
+
+    private static Specification<Transfers> searchByScheduleDate(LocalDate scheduleDate) {
+        return (root, query, criteriaBuilder) -> {
+            if (scheduleDate == null) return null;
+
+            return criteriaBuilder.equal(root.get(Transfers_.scheduleDate.getName()), scheduleDate);
+        };
+    }
+
+    private static Specification<Transfers> searchByTransferDate(LocalDate transferDate) {
+        return (root, query, criteriaBuilder) -> {
+            if (transferDate == null) return null;
+
+            return criteriaBuilder.equal(root.get(Transfers_.transferDate.getName()), transferDate);
         };
     }
 }

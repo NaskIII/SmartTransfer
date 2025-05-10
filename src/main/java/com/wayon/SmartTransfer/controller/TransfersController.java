@@ -52,6 +52,23 @@ public class TransfersController {
         }
     }
 
+    @PostMapping("/tax-simulation")
+    public ResponseEntity<?> getTaxSimulation(@Valid @RequestBody CreateTransfersRequest createTransfersRequest,
+                                            UriComponentsBuilder uriComponentsBuilder,
+                                            HttpServletRequest request) {
+        try {
+            var token = request.getHeader("Authorization").split(" ");
+
+            var fee = transfersService.getTaxSimulation(createTransfersRequest, tokenService.getUserId(token[1]));
+
+            return ResponseEntity.ok(fee);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        } catch (ChangeSetPersister.NotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
     @GetMapping("/{uuid}")
     public ResponseEntity<?> getTransferById(@PathVariable String uuid, HttpServletRequest request) {
         try {

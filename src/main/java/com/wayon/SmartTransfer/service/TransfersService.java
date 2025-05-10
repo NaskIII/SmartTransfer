@@ -20,6 +20,7 @@ import org.springframework.util.MultiValueMap;
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Objects;
 
 @Service
 public class TransfersService {
@@ -50,6 +51,23 @@ public class TransfersService {
         return savedTransfer.getTransferId();
     }
 
+    public BigDecimal getTaxSimulation(CreateTransfersRequest transfersRequest, String userId) throws ChangeSetPersister.NotFoundException {
+        var user = userRepository.findById(userId).orElseThrow(ChangeSetPersister.NotFoundException::new);
+
+        LocalDate today = LocalDate.now();
+
+        int daysDifference = FeeRange.calculateDaysDifference(today, transfersRequest.getTransferDate());
+
+        FeeRange feeRange = FeeRange.fromDays(daysDifference);
+        BigDecimal fee = feeRange.calculateFee(transfersRequest.getAmount());
+
+        Transfers transfer = ITransfersMapper.INSTANCE.CreateTransfersRequestToTransfer(transfersRequest);
+        transfer.setSourceAccount(user.getSourceAccount());
+        transfer.setFee(fee);
+
+        return transfer.getFee();
+    }
+
     public TransfersResponse getTransferById(String id, String userId) throws ChangeSetPersister.NotFoundException, InvalidOperatorException {
         Transfers transfers = transfersRepository.findById(id).orElseThrow(ChangeSetPersister.NotFoundException::new);
 
@@ -68,6 +86,16 @@ public class TransfersService {
                 .destinationAccount(params.getFirst("destinationAccount"))
                 .createdBy(params.getFirst("createdBy"))
                 .build();
+
+        String scheduleDateStr = params.getFirst("scheduleDate");
+        if (scheduleDateStr != null && !scheduleDateStr.isEmpty()) {
+            searchCriteria.setScheduleDate(LocalDate.parse(scheduleDateStr));
+        }
+
+        String transferDateStr = params.getFirst("transferDate");
+        if (transferDateStr != null && !transferDateStr.isEmpty()) {
+            searchCriteria.setTransferDate(LocalDate.parse(transferDateStr));
+        }
 
         var specification = TransferSpecifications.search(searchCriteria);
 

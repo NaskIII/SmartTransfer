@@ -4,6 +4,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
+
 @Getter
 @Setter
 @Builder
@@ -16,4 +18,8 @@ public class TransfersSearchCriteria {
     private String destinationAccount;
 
     private String createdBy;
+
+    private LocalDate scheduleDate;
+
+    private LocalDate transferDate;
 }
